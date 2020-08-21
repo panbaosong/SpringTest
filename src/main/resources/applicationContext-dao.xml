@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+    <!--配置数据源-->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:dbcp.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!--配置数据库连接池-->
+    <bean id="dataSource" class = "org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url}" />
+        <property name="username" value="${username}" />
+        <property name="password" value="${password}" />
+        <property name="initialSize" value="${initialSize}" />
+        <property name="minIdle" value="${minIdle}" />
+        <property name="maxIdle" value="${maxIdle}" />
+        <property name="maxWaitMillis" value="${maxWaitMillis}" />
+        <property name="testOnReturn" value="${testOnReturn}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+        <property name="numTestsPerEvictionRun" value="${numTestsPerEvictionRun}" />
+        <property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}" />
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+        <property name="removeAbandonedOnBorrow" value="${removeAbandonedOnBorrow}" />
+        <property name="removeAbandonedOnMaintenance" value="${removeAbandonedOnMaintenance}" />
+        <property name="logAbandoned" value="${logAbandoned}" />
+        <!-- 连接池的最大值，同一时间可以从池分配的最多连接数量，0时无限制   默认值是8 -->
+        <property name="maxTotal" value="15" />
+
+    </bean>
+    <!-- 添加事务支持 -->
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 开启事务注解 -->
+    <tx:annotation-driven transaction-manager="txManager" />
+
+    <!-- 配置mybitas工厂，同时指定数据源，并与MyBatis完美整合 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- configLocation的属性值为Mybatis的核心配置文件 -->
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+
+        <property name="mapperLocations" value="classpath*:mappers/*Mapper.xml" />
+    </bean>
+    <!-- Mapper代理开发，使用Spring自动扫描Mybatis的接口并装配 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- mybatis-spring组件的扫描器 -->
+        <property name="basePackage" value="com.zhongwang.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+    <!-- 指定需要扫描的包（包括子包），使注解生效。dao包在mybatis-spring组件中已经扫描，这里不在需要扫描 -->
+    <context:component-scan base-package="com.zhongwang.service" />
+</beans>

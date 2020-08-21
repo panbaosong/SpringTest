@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<!-- 开启缓存，如果置为false，则各个mapper中的缓存配置都不会生效 -->
+		<setting name="cacheEnabled" value="false" />
+		<!-- 延迟加载 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 如果存在延时加载，则对象属性按需加载 -->
+		<setting name="aggressiveLazyLoading" value="true" />
+		<!--解决控制台打印乱码-->
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+	</settings>
+	
+	<!--plugins>
+	    <plugin interceptor="com.zhongwang.common.mybatis.locker.interceptor.OptimisticLocker">
+	        <property name="versionColumn" value="flag_version"/>
+	        <property name="versionField" value="flagVersion"/>
+	    </plugin>
+    </plugins-->
+</configuration>
