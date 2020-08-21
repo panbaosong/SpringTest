@@ -1,0 +1,113 @@
+什么是IOC和AOP？
+	IOC：控制反转，DL：称之为依赖注入，他们解决了对象的创建和依赖关系，对象的创建和依赖都交给Spring容器，解耦合。
+	AOP：面向切面编程，将业务系统的公告的模块提取出来（日志，权限，事务，异常），利用横切技术，植入到项目的业务中，解耦合。
+什么是spring DL 和IOC
+	spring时一个web的容器类框架，spring最低成就是一个工厂模式，简单工厂模式，分工合作。
+	它解决了创建对象的问题，另外一个是类的维护对象之间的关系
+	spring核心就是干这两件事，创建对象，维护对象之间的关系
+spring支持几种Bean的作用域？
+	singleton:单例，默认，容器初始化，启动时
+	prototype：原型，多例，获取时才创建。
+	requst：一次请求
+	session：一次会话
+	globalSession：全局Session
+spring支持的事务有几种？分别是什么
+	声明式事务，和编程式事务。
+	声明式事务：在类或者是方法上面加上@Transactional注解，建立在AOP之上。其本质是对前后进行拦截，然后在目标方法开始之前创建或者加入一个事务，在执行完目标发放之后根据执行情况或者回滚事务，声明式事务最大的优点就是不需要通过编程的方式管理事务，这样就不需要在业务逻辑代码中掺杂事务管理的代码，只需要配置文件中做相关的事务规则声明即可，
+	编程式事务：相比声明式事务和非侵入式的开发方式，编程式事务需要自己通过编程事务管理使用TransactionTemplate或者直接使用底层的PlatformTransactionManager来实现事务，Spring更推崇使用TransactionTemplate类来实现编程式事务
+编程式事务和声明式事务的有点和缺点是什么？
+	声明式事务：非入侵的开发方式，业务代码不受污染，简单，方便，事务粒度最小在一个方法上
+	编程式事务：相对于声明式事务唯一的有点就是事务力度更精细。	
+编程式事务的应用场景
+	声明式事务在处理事务的时候连接数据库的时间较长。浪费资源。在这点上编程式事务比声明式事务好，可以控制成事务块。
+描述一些springMVC的工作原理？
+	1.用户发送请求到前端控制器，DispatcherServlet
+	2.前端控制器收到请求调用处理器样射器，HandlerMapping
+	3.处理器映射器找到具体的处理器，生成处理器对象及处理器拦截器。
+	4.前端控制器调用处理器适配器。HandlerAdapter
+	5.处理器适配器经过适配调用具体的处理器（controller）
+	6.处理器执行完成后返回modelandview，
+	7.处理器适配器将modelandview返回给前端控制器，
+	8，前端控制器将modelandview传给视图解析器。
+	9。视图解析器解析后返回具体的view
+	10.前端控制器根据view进行视图渲染。
+	11。前端控制器相应给用户
+SpringBoot和Spring的区别是什么？
+	springBoot则是spring的升级版框架使开发人员不在为了繁杂的配置文件而头疼	
+	SpringBoot的优点及策略
+	优点：
+		1.可以建立独立的Spring应用程序
+		2.内嵌的有TomCat等serverlet容器
+		3.简化的Maven配置
+		4.自动配置spring容器
+		5.减少代码生成，无需xml配置
+	策略：
+		1.开箱即用
+		2.约定大于配置：是值springBoot自己配置目标结构，开发者在结构中添加信息约定application.properties是配置文件的名称和格式，不能是乱七八糟的也就是说在springBoot中，如果外部某些框架 我是没有集成的 比如你们公司自己开发了一套jdbc框架 这一套框架是Springboot没有自动集成的 然后springboot就提前约定好 如果我没有自动集成的框架 你还想自动集成进来 那么你必须要实现某些我给你提供好的接口 按照我强制要求的写法去写 否则不能实现
+		这样就大大的增加了springboot的可扩展性
+springBoot版本 1.5.5对应JDK版本？
+	官网第一张明确的说明了，jdk1。8之后的版本才可以用，1.7之前都不可用
+springBoot 继承的容器除了Tomcat还有什么？
+	还有Jetty和Tomcat一样的
+SpringBoot 内置的Starter？
+	SpringBoot内置了各种Starter起步依赖，我们使用非常方便，大大减轻了我们的开发工作。有了Starter起步依赖，我们不用去考虑这个项目需要什么库，这个库的groupId和artifactId是什么？更不用担心引入这个版本的库后会不会跟其他依赖有没有冲突。	
+spring支持几种bean的作用域？
+	五种
+		singleton：单例模式：bean在每个spring ioc容器中只有一个实例
+		prototype：原型模式：一个bean的定义可以有多个实例
+		request：HTTP请求：每次http请求都会创建一个bean，
+		session：会话：在http Session中，一个bean定义对应一个实例。
+		global——session：全局会话：在一个全局的HTTP session中，一个bean定义对应一个实例
+spring的七大组件：
+	核心容器
+	应用上下文
+	面向切面编程
+	jdbc和DAO模块
+	对象实体映射
+	web模块
+	MVC模块
+springBoot的核心注解的组成是什么？
+	springbootapplication
+	有他们三个组成：
+			springbootconfiguration
+			enableautoconfigurtion
+			componentScan
+spring有几种形式实现：
+	三种
+		xml
+		手写配置类
+		注解注入
+spring常见的注入方式有哪些？
+		构造注入，setter注入，基于注解的注入	
+spring的事务？
+		声明式事务：将业务代码和事务管理分离，使用注解和xml配置来管理事务
+		编程式事务：通过编程的方式管理事务，灵活性高，但难维护，需要调用beginTransaction(),commit(),rollback()等事务管理的相关方法
+spring的设计模式
+			工厂模式：创建对象时不对客户端暴露创建逻辑，通过使用一个共同的接口来指向新创建的对象，如BeanFactory
+			代理模式：两种代理模式，一种若对象实现了接口，spring使用jdk的类代理，若没有实现接口，spring使用cglib生成目标对象的子类
+			单例模式：bean默认都是单例模式
+			模板方法模式：解决代码重复问题
+			前端控制器模式：spring提供了DispatcherServlet来对请求进行分发
+			视图帮助：spring的jsp标签来辅助将分散的代码整合到视图中
+			依赖注入：贯穿于beanfactory/Application Context接口的核心理念
+			原型模式：每次通过容器的getBean方法获取prototype定义的Bean时，都将产生一个新的Bean实例											
+springboot的自动装配原理
+		Spring Boot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值，将这些值作为自动配置类导入到容器中，自动配置类就生效，帮我们进行自动配置工作。以前我们需要自己配置的东西，自动配置类都帮我们完成了。					
+cookie 和 session 的区别
+	1.cokkie数据放在客户浏览器上，session数据放在服务器上
+	2.cookie是不安全的，session安全
+	3.session会在一定时间内保存在服务器上，占用加多的服务器性能
+	4.单个cookie保存数据不能超过4k，浏览器限制一个站点最多保存20个cookie
+
+	cookie
+		1.会话cookie
+		2.持久cookie
+
+	当cookie设置生命周期，持久化到硬盘，一直到失效==>expires属性  以key和value的形式存储		
+spingbootappliactioncontxt的三个实现类
+		classpath
+		systemfileappliactioncontxt
+
+多态的特点
+	父类引用指向子类
+			

@@ -1,0 +1,27 @@
+Mybatis配置一对多，多对一？
+	实体中：集合 <collection ofType="类型"> ：一对多
+	实体中：引用对象 <association property=""lumn=""avaType="">
+					多对一	
+Mybatis一级缓存和二级缓存
+	一级缓存：会话级别的缓存，默认开启失效：关闭session，执行修改（增删改）或者clearCache（）；配置完自动生效，作用域为SqlSession。SqlSession会先去本地缓存中查找是否有数据，如果有直接返回使用。如果没有去数据库查找，将数据缓存到本地，返回结果，
+	二级缓存：NameSpace为单位进行存储；全局；本地缓存；
+	配置缓存开启之后生效，，开启之后重启TomCat才会失效，MyBatis会监听增删改清空缓存，但不会关闭，除非重启TomCat
+Mybatis工作原理？
+	1.加载mybatis全局配置文件，然后开始解析，mybatis基于xml配置文件生成的configuration，和一个个MappedStatement
+	2.SqlSessionFatoryBuilder通过configuration对象生成sqlSessionFactory，用来开启SqlSession。
+	3.SqlSession对象完成和数据库的交互，
+	a.用户程序调用mybatis接口层的api
+	b。sqlsession通过调用api的statementID找到对应的mappedStatement对象
+	c。通过Executor将Mappedstatement对象进行解析，sql参数转化，动态Sql拼接，生成jdbc statement对象
+	d。 jdbc执行sql。
+	e。借助mappedstatement中的结果映射关系，将返回的结果转化成hashmap，javaBean等储存结构并返回。
+MyBatis执行流程与步骤
+	1、使用XML配置文件或Java代码方式生产SqlSessionFactory
+	2、使用Resources类的getResourceAsStream()方法读取XML配置文件
+	3、使用SqlSessionFactoryBuilder类的build()方法创建sqlSessionFactory
+	4、得到sqlSessionFactory类后使用该类的openSession()获取SqlSession
+	5、得到SqlSession后需要实现映射器的功能，映射器有一个接口和该接口对应的XML映射文件或使用注解组成
+	6、使用SqlSession的getMapper()方法得到具体的接口类对象
+#和$的区别
+		#是预编译处理，$字符串替换
+		#{}防止sql的注入，提高安全性
