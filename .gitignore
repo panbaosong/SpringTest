@@ -1,0 +1,6 @@
+/.idea/*.gitignore
+/.idea/artifacts/*.xml
+/.idea/*.xml
+/.idea/libraries/*.xml
+/target
+/SpringTest.iml
