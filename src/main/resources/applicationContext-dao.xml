@@ -26,15 +26,17 @@
         <property name="maxWaitMillis" value="${maxWaitMillis}" />
         <property name="testOnReturn" value="${testOnReturn}" />
         <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
-        <property name="numTestsPerEvictionRun" value="${numTestsPerEvictionRun}" />
-        <property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}" />
         <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
         <property name="removeAbandonedOnBorrow" value="${removeAbandonedOnBorrow}" />
         <property name="removeAbandonedOnMaintenance" value="${removeAbandonedOnMaintenance}" />
         <property name="logAbandoned" value="${logAbandoned}" />
         <!-- 连接池的最大值，同一时间可以从池分配的最多连接数量，0时无限制   默认值是8 -->
-        <property name="maxTotal" value="15" />
-
+        <property name="maxTotal" value="${maxTotal}" />
+        <property name="testOnBorrow" value="${testOnBorrow}" />
+        <property name="testWhileIdle" value="${testWhileIdle}" />
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+        <property name="validationQueryTimeout" value="${validationQueryTimeout}" />
+        <property name="validationQuery" value="${validationQuery}" />
     </bean>
     <!-- 添加事务支持 -->
     <bean id="txManager"

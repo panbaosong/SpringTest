@@ -23,9 +23,10 @@ public class SpringAopServiceImpl implements SpringAopService {
 
 	@Override
 	public void sayHello() {
-		int a = 31415926;
-		int b =  springAopDao.insert(a);
-		System.out.println(b);
+		for (int i = 0; i < 2000; i++) {
+			springAopDao.insert(i);
+			System.out.println(i);
+		}
 	}
 
 }
